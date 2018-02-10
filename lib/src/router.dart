@@ -74,12 +74,11 @@ class Router {
 
     for (Route route in this._childs.keys) {
       if (route.isSubPath(url)) {
-        print(route.subPath(url));
         return this._childs[route]._getHandler(req, route.subPath(url));
       }
     }
 
-    return new shelf.Response.notFound("Not found");
+    return new shelf.Response.notFound("Not Found");
   }
 
   shelf.Handler get handler {
