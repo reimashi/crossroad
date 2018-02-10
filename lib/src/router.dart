@@ -16,7 +16,7 @@ class Router {
       [List<String> methods = const ["GET", "POST", "PUT", "DELETE"]]) {
     Route newRoute = new Route(path);
 
-    if (!this._handlers.containsKey(newRoute))
+    if (!this._handlers.keys.any((r) => r.compareTo(newRoute) == 0))
       this._handlers[newRoute] = new RouterHandlerBean(handler, methods);
     else
       throw new Exception("Route collision: ${newRoute}.");
