@@ -34,6 +34,18 @@ class Router {
   void delete(Pattern path, RouterHandler handler) =>
       all(path, handler, const ["DELETE"]);
 
+  void getS(Pattern path, shelf.Handler handler) =>
+      get(path, HandlerWrapper(handler));
+
+  void postS(Pattern path, shelf.Handler handler) =>
+      post(path, HandlerWrapper(handler));
+
+  void putS(Pattern path, shelf.Handler handler) => 
+      put(path, HandlerWrapper(handler));
+
+  void deleteS(Pattern path, shelf.Handler handler) =>
+      delete(path, HandlerWrapper(handler));
+
   Router route(Pattern path) {
     Route newRoute = new Route(path);
 
