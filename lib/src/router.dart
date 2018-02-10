@@ -2,19 +2,11 @@ import 'dart:async';
 import 'package:shelf/shelf.dart' as shelf;
 import 'route.dart';
 import 'router_handler.dart';
-
-class RouterHandlerWrapper {
-  final RouterHandler handler;
-  final List<String> methods;
-
-  RouterHandlerWrapper(RouterHandler handler, List<String> methods)
-      : this.handler = handler,
-        this.methods = methods;
-}
+import 'router_handler_bean.dart';
 
 class Router {
   final Router _parent;
-  Map<Route, RouterHandlerWrapper> _handlers = {};
+  Map<Route, RouterHandlerBean> _handlers = {};
   Map<Route, Router> _childs = {};
   shelf.Pipeline _pipeline = const shelf.Pipeline();
 
@@ -25,7 +17,7 @@ class Router {
     Route newRoute = new Route(path);
 
     if (!this._handlers.containsKey(newRoute))
-      this._handlers[newRoute] = new RouterHandlerWrapper(handler, methods);
+      this._handlers[newRoute] = new RouterHandlerBean(handler, methods);
     else
       throw new Exception("Route collision: ${newRoute}.");
   }
