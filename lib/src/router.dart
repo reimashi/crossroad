@@ -66,16 +66,16 @@ class Router {
   FutureOr<shelf.Response> _getHandler(shelf.Request req, [String url = null]) {
     url = url ?? "/" + req.url.toString();
 
+    for (Route route in this._childs.keys) {
+      if (route.isSubPath(url)) {
+        return this._childs[route]._getHandler(req, route.subPath(url));
+      }
+    }
+
     for (Route route in this._handlers.keys) {
       if (route.match(url) &&
           this._handlers[route].methods.contains(req.method)) {
         return this._handlers[route].handler(req, route.parameters(url));
-      }
-    }
-
-    for (Route route in this._childs.keys) {
-      if (route.isSubPath(url)) {
-        return this._childs[route]._getHandler(req, route.subPath(url));
       }
     }
 
