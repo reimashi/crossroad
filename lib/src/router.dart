@@ -10,6 +10,7 @@ class Router {
   Map<Route, Router> _childs = {};
   shelf.Pipeline _pipeline = const shelf.Pipeline();
 
+  Router.root() : this._(null);
   Router._(Router parent) : this._parent = parent;
 
   void all(Pattern path, RouterHandler handler,
@@ -99,4 +100,4 @@ class Router {
   }
 }
 
-final Crossroad = new Router._(null);
+final Crossroad = new Router.root();
